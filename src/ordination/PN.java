@@ -9,6 +9,12 @@ public class PN extends Ordination {
     private double antalEnheder;
     private ArrayList<LocalDate> datoerForDosis = new ArrayList<>();
 
+    public PN(LocalDate startDen, LocalDate slutDen, int antalEnheder) {
+        super(startDen, slutDen);
+        this.antalEnheder = antalEnheder;
+    }
+
+
     /**
      * Registrerer at der er givet en dosis paa dagen givesDen
      * Returnerer true hvis givesDen er inden for ordinationens gyldighedsperiode og datoen huskes
@@ -54,6 +60,10 @@ public class PN extends Ordination {
 
     public double getAntalEnheder() {
         return antalEnheder;
+    }
+
+    public ArrayList<LocalDate> getDatoerForDosis() {
+        return new ArrayList<>(getDatoerForDosis());
     }
 
 }

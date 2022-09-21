@@ -9,7 +9,6 @@ public abstract class Ordination {
     // association: --> 0..1 Laegemiddel
     private Laegemiddel laegemiddel;
 
-    // TODO constructor (med specifikation)
     public Ordination(LocalDate startDen, LocalDate slutDen) {
         this.startDen = startDen;
         this.slutDen = slutDen;

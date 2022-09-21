@@ -6,7 +6,7 @@ public class Dosis {
     private LocalTime tid;
     private double antal;
 
-    public Dosis(LocalTime tid, double antal) {
+     Dosis(LocalTime tid, double antal) { //OBS package visibility
         super();
         this.tid = tid;
         this.antal = antal;

@@ -12,72 +12,80 @@ import ordination.Patient;
 import storage.Storage;
 
 public class Controller {
-	private Storage storage;
-	private static Controller controller;
+  private static Controller controller;
+  private Storage storage;
 
-	private Controller() {
-		storage = new Storage();
-	}
+  private Controller() {
+    storage = new Storage();
+  }
 
-	public static Controller getController() {
-		if (controller == null) {
-			controller = new Controller();
-		}
-		return controller;
-	}
+  public static Controller getController() {
+    if (controller == null) {
+      controller = new Controller();
+    }
+    return controller;
+  }
 
-	public static Controller getTestController() {
-		return new Controller();
-	}
+  public static Controller getTestController() {
+    return new Controller();
+  }
 
-	/**
-	 * Hvis startDato er efter slutDato kastes en IllegalArgumentException og
-	 * ordinationen oprettes ikke
-	 * Pre: startDen, slutDen, patient og laegemiddel er ikke null
-	 * Pre: antal >= 0
-	 * @return opretter og returnerer en PN ordination.
-	 */
-	public PN opretPNOrdination(LocalDate startDen, LocalDate slutDen,
-			Patient patient, Laegemiddel laegemiddel, double antal) {
-		PN pn;
-		if (startDen.isBefore(slutDen)) {
-			pn = new PN(startDen, slutDen, antal);
-			pn.setLaegemiddel(laegemiddel);
-			patient.addOrdination(pn);
-		} else {
-			throw new IllegalArgumentException("Startdato er efter slutdato");
-		}
-		return pn;
-	}
+  /**
+   * Hvis startDato er efter slutDato kastes en IllegalArgumentException og
+   * ordinationen oprettes ikke
+   * Pre: startDen, slutDen, patient og laegemiddel er ikke null
+   * Pre: antal >= 0
+   *
+   * @return opretter og returnerer en PN ordination.
+   */
+  public PN opretPNOrdination(LocalDate startDen, LocalDate slutDen,
+                              Patient patient, Laegemiddel laegemiddel, double antal) {
+    PN pn;
+    if (startDen.isBefore(slutDen)) {
+      pn = new PN(startDen, slutDen, antal);
+      pn.setLaegemiddel(laegemiddel);
+      patient.addOrdination(pn);
+    } else {
+      throw new IllegalArgumentException("Startdato er efter slutdato");
+    }
+    return pn;
+  }
 
-	/**
-	 * Opretter og returnerer en DagligFast ordination. Hvis startDato er efter
-	 * slutDato kastes en IllegalArgumentException og ordinationen oprettes ikke
-	 * Pre: startDen, slutDen, patient og laegemiddel er ikke null
-	 * Pre: margenAntal, middagAntal, aftanAntal, natAntal >= 0
-	 */
-	public DagligFast opretDagligFastOrdination(LocalDate startDen,
-			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
-			double morgenAntal, double middagAntal, double aftenAntal,
-			double natAntal) {
-		// TODO
-		return null;
-	}
+  /**
+   * Opretter og returnerer en DagligFast ordination. Hvis startDato er efter
+   * slutDato kastes en IllegalArgumentException og ordinationen oprettes ikke
+   * Pre: startDen, slutDen, patient og laegemiddel er ikke null
+   * Pre: margenAntal, middagAntal, aftanAntal, natAntal >= 0
+   */
+  public DagligFast opretDagligFastOrdination(LocalDate startDen,
+                                              LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
+                                              double morgenAntal, double middagAntal, double aftenAntal,
+                                              double natAntal) {
+    DagligFast df;
+    if (startDen.isBefore(slutDen)) {
+      df = new DagligFast(startDen, slutDen);
+      df.setLaegemiddel(laegemiddel);
+      patient.addOrdination(df);
+    } else {
+      throw new IllegalArgumentException("Startdato er efter slutdato");
+    }
+    return df;
+  }
 
-	/**
-	 * Opretter og returnerer en DagligSkæv ordination. Hvis startDato er efter
-	 * slutDato kastes en IllegalArgumentException og ordinationen oprettes ikke.
-	 * Hvis antallet af elementer i klokkeSlet og antalEnheder er forskellige kastes også en IllegalArgumentException.
-	 *
-	 * Pre: startDen, slutDen, patient og laegemiddel er ikke null
-	 * Pre: alle tal i antalEnheder > 0
-	 */
-	public DagligSkaev opretDagligSkaevOrdination(LocalDate startDen,
-			LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
-			LocalTime[] klokkeSlet, double[] antalEnheder) {
-		// TODO
-		return null;
-	}
+  /**
+   * Opretter og returnerer en DagligSkæv ordination. Hvis startDato er efter
+   * slutDato kastes en IllegalArgumentException og ordinationen oprettes ikke.
+   * Hvis antallet af elementer i klokkeSlet og antalEnheder er forskellige kastes også en IllegalArgumentException.
+   * <p>
+   * Pre: startDen, slutDen, patient og laegemiddel er ikke null
+   * Pre: alle tal i antalEnheder > 0
+   */
+  public DagligSkaev opretDagligSkaevOrdination(LocalDate startDen,
+                                                LocalDate slutDen, Patient patient, Laegemiddel laegemiddel,
+                                                LocalTime[] klokkeSlet, double[] antalEnheder) {
+    // TODO
+    return null;
+  }
 
 	/**
 	 * En dato for hvornår ordinationen anvendes tilføjes ordinationen. Hvis

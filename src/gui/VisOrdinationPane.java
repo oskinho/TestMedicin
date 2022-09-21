@@ -37,7 +37,7 @@ public class VisOrdinationPane extends GridPane {
 							lstOrdination.getItems().setAll(
 									lstPatient.getSelectionModel()
 											.getSelectedItem()
-											.getOrdinationer());
+											.getOrdinations());
 						});
 		lstPatient.getSelectionModel().selectFirst();
 
@@ -61,9 +61,9 @@ public class VisOrdinationPane extends GridPane {
 			ordinationDetailsPane.setOrdination(ordination);
 			if (ordination instanceof DagligFast) {
 				DagligFast dagligFast = (DagligFast) ordination;
-				ordinationDetailsPane.setFast(dagligFast.getDoser()[0],
-						dagligFast.getDoser()[1], dagligFast.getDoser()[2],
-						dagligFast.getDoser()[3]);
+				ordinationDetailsPane.setFast(dagligFast.getDosis()[0],
+						dagligFast.getDosis()[1], dagligFast.getDosis()[2],
+						dagligFast.getDosis()[3]);
 			} else if (ordination instanceof DagligSkaev) {
 				ordinationDetailsPane.setSkaev((DagligSkaev) ordination);
 			} else if (ordination instanceof PN) {
@@ -79,7 +79,7 @@ public class VisOrdinationPane extends GridPane {
 		}
 		lstOrdination.getItems().setAll(
 				lstPatient.getSelectionModel().getSelectedItem()
-						.getOrdinationer());
+						.getOrdinations());
 		lstOrdination.getSelectionModel().select(selected);
 	}
 }

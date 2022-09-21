@@ -39,9 +39,23 @@ public class DagligFast extends Ordination {
     }
 
     //index må ikke være over 4
-    public Dosis createDosis(LocalTime tid, double antal, int index) {
+    public Dosis createDosis(LocalTime tid, double antal) {
+        //sorter efter tid
+        // 22-04 - 04-10 - 10-16 - 16-22
         Dosis dosis1 = new Dosis(tid, antal);
-        dosis[index] = dosis1;
+        if (tid.isAfter(LocalTime.of(22, 0))||tid.isBefore(LocalTime.of(4, 0))){
+            dosis[3] = dosis1;
+        }
+        if (tid.isAfter(LocalTime.of(4, 0))||tid.isBefore(LocalTime.of(10, 0))){
+            dosis[2] = dosis1;
+        }
+        if (tid.isAfter(LocalTime.of(10, 0))||tid.isBefore(LocalTime.of(16, 0))){
+            dosis[1] = dosis1;
+        }
+        if (tid.isAfter(LocalTime.of(16, 0))||tid.isBefore(LocalTime.of(22, 0))){
+            dosis[0] = dosis1;
+        }
+
         return dosis1;
     }
 

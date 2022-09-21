@@ -6,8 +6,9 @@ import java.time.temporal.ChronoUnit;
 public abstract class Ordination {
     private LocalDate startDen;
     private LocalDate slutDen;
+    // association: --> 0..1 Laegemiddel
+    private Laegemiddel laegemiddel;
 
-    // TODO Link til Laegemiddel
     // TODO constructor (med specifikation)
 
     public LocalDate getStartDen() {
@@ -17,6 +18,23 @@ public abstract class Ordination {
     public LocalDate getSlutDen() {
         return slutDen;
     }
+
+    // -------------------------------------------------------------------------
+
+    public Laegemiddel getLaegemiddel() {
+        return laegemiddel;
+    }
+
+    /**
+     * Sets the laegemiddel as this ordination's laegemiddel.
+     */
+    public void setLaegemiddel(Laegemiddel laegemiddel) {
+        if (this.laegemiddel != laegemiddel) {
+            this.laegemiddel = laegemiddel;
+        }
+    }
+
+    // -------------------------------------------------------------------------
 
     /**
      * Antal hele dage mellem startdato og slutdato. Begge dage inklusive.

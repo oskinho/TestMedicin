@@ -1,6 +1,8 @@
 package ordination;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -8,6 +10,10 @@ public class DagligSkaev extends Ordination {
     //------------------------------------------------------------
     // composition 1-->0..* dosis
     private final ArrayList<Dosis> dosis = new ArrayList<>();
+
+    public DagligSkaev(LocalDate startDen, LocalDate slutDen) {
+        super(startDen, slutDen);
+    }
     //------------------------------------------------------------
     //forbindelse mellem dosis og dagligskæv
 
@@ -32,15 +38,22 @@ public class DagligSkaev extends Ordination {
 
     @Override
     public double samletDosis() {
-        int samlet= 0;
-        for (int i = 0; i <dosis.size() ; i++) {
-
+        int samlet = 0;
+        for (int i = 0; i < dosis.size(); i++) {
+            samlet += dosis.get(i).getAntal();
         }
+        return samlet;
     }
 
     @Override
     public double doegnDosis() {
-        return 0;
+        double dageMlFoersteOgSidsteGivning = (int) ChronoUnit.DAYS.between(getStartDen(), getSlutDen());
+        double samlet = 0;
+        for (int i = 0; i < dosis.size(); i++) {
+            samlet += dosis.get(i).getAntal();
+        }
+        return samlet / dageMlFoersteOgSidsteGivning;
+
     }
 
     @Override

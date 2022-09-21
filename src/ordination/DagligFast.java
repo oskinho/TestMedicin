@@ -17,6 +17,10 @@ public class DagligFast extends Ordination {
     //liste med datoer for daglige dosis
     private final ArrayList<Dosis[]> dosisForEnPeriode = new ArrayList<>();
 
+    public DagligFast(LocalDate startDen, LocalDate slutDen) {
+        super(startDen, slutDen);
+    }
+
     //get metode for listen med daglige dosis
     public ArrayList<Dosis[]> getDosisForEnPeriode() {
         return new ArrayList<>(dosisForEnPeriode);
@@ -47,8 +51,10 @@ public class DagligFast extends Ordination {
     public double samletDosis() {
         double samlet = 0;
         for (int i = 0; i < dosisForEnPeriode.size(); i++) {
-            for (int j = 0; j <dosis.length ; j++) {
-                samlet += dosis[j].getAntal();
+            for (int j = 0; j < dosis.length; j++) {
+                if (dosis[j] != null) {
+                    samlet += dosis[j].getAntal();
+                }
             }
         }
         return samlet;
@@ -58,7 +64,9 @@ public class DagligFast extends Ordination {
     public double doegnDosis() {
         double samlet = 0;
         for (int i = 0; i < dosis.length; i++) {
-            samlet += dosis[i].getAntal();
+            if (dosis[i] != null) {
+                samlet += dosis[i].getAntal();
+            }
         }
         return samlet;
     }

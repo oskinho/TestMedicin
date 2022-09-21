@@ -36,8 +36,7 @@ public class PN extends Ordination {
      * @return
      */
     public double doegnDosis() {
-        int dageMlFoersteOgSidsteGivning =  (int) ChronoUnit.DAYS.between(datoerForDosis.get(0), datoerForDosis.get(datoerForDosis.size() - 1));
-        return (datoerForDosis.size() * antalEnheder)/dageMlFoersteOgSidsteGivning;
+        return (datoerForDosis.size() * antalEnheder)/super.antalDage();
     }
 
     @Override

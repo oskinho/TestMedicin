@@ -86,7 +86,9 @@ public class Controller {
 	 * Pre: ordination og dato er ikke null
 	 */
 	public void ordinationPNAnvendt(PN ordination, LocalDate dato) {
-		// TODO
+		if (!ordination.givDosis(dato)) {
+			throw new IllegalArgumentException("datoen ikke er indenfor ordinationens gyldighedsperiode");
+		}
 	}
 
 	/**

@@ -47,7 +47,7 @@ public class DagligFast extends Ordination {
     //index må ikke være over 4
     public Dosis createDosis(LocalTime tid, double antal) {
         //sorter efter tid
-        // 00-06 - 06-12 - 12-18 - 18-24
+        // 04-10 - 10-16 - 16-22 - 22-04
         Dosis dosis1 = new Dosis(tid, antal);
         if (tid.isAfter(LocalTime.of(22, 0)) || tid.isBefore(LocalTime.of(4, 0)) && dosis[3] == null) {
             dosis[3] = dosis1;
@@ -91,7 +91,7 @@ public class DagligFast extends Ordination {
     public double doegnDosis() {
         double samlet = 0;
 //        double dageMlFoersteOgSidsteGivning = (int) ChronoUnit.DAYS.between(getStartDen(), getSlutDen());
-        double dageMlFoersteOgSidsteGivning = antalDage();
+//        double dageMlFoersteOgSidsteGivning = antalDage();
         for (int i = 0; i < dosis.length; i++) {
             if (dosis[i] != null) {
                 samlet += dosis[i].getAntal();

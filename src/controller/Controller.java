@@ -101,7 +101,7 @@ public class Controller {
 	} else {
 		throw new IllegalArgumentException("Startdato er efter slutdato");
 	}
-    return null;
+    return ds;
   }
 
 	/**

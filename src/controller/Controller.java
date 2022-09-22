@@ -66,6 +66,10 @@ public class Controller {
       df = new DagligFast(startDen, slutDen);
       df.setLaegemiddel(laegemiddel);
       patient.addOrdination(df);
+	  df.createDosis(LocalTime.of(8, 0), morgenAntal);
+	  df.createDosis(LocalTime.of(12, 0), middagAntal);
+	  df.createDosis(LocalTime.of(18, 0), aftenAntal);
+	  df.createDosis(LocalTime.of(23, 0), natAntal);
     } else {
       throw new IllegalArgumentException("Startdato er efter slutdato");
     }

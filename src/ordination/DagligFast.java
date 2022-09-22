@@ -70,7 +70,7 @@ public class DagligFast extends Ordination {
     @Override
     public double samletDosis() {
         double samlet = 0;
-        double dageMlFoersteOgSidsteGivning = (int) ChronoUnit.DAYS.between(getStartDen(), getSlutDen());
+        double dageMlFoersteOgSidsteGivning = antalDage();
 //        for (int i = 0; i < dosisForEnPeriode.size(); i++) {
 //            for (int j = 0; j < dosis.length; j++) {
 //                if (dosis[j] != null) {
@@ -90,7 +90,8 @@ public class DagligFast extends Ordination {
     @Override
     public double doegnDosis() {
         double samlet = 0;
-        double dageMlFoersteOgSidsteGivning = (int) ChronoUnit.DAYS.between(getStartDen(), getSlutDen());
+//        double dageMlFoersteOgSidsteGivning = (int) ChronoUnit.DAYS.between(getStartDen(), getSlutDen());
+        double dageMlFoersteOgSidsteGivning = antalDage();
         for (int i = 0; i < dosis.length; i++) {
             if (dosis[i] != null) {
                 samlet += dosis[i].getAntal();

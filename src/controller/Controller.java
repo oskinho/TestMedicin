@@ -4,11 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import ordination.DagligFast;
-import ordination.DagligSkaev;
-import ordination.Laegemiddel;
-import ordination.PN;
-import ordination.Patient;
+import ordination.*;
 import storage.Storage;
 
 public class Controller {
@@ -136,16 +132,24 @@ public class Controller {
 		return anbefaletDosis;
 	}
 
-	/**
-	 * For et givent vægtinterval og et givent lægemiddel, hentes antallet af
-	 * ordinationer.
-	 * Pre: laegemiddel er ikke null
-	 */
-	public int antalOrdinationerPrVægtPrLægemiddel(double vægtStart,
-			double vægtSlut, Laegemiddel laegemiddel) {
-		// TODO
-		return 0;
-	}
+  /**
+   * For et givent vægtinterval og et givent lægemiddel, hentes antallet af
+   * ordinationer.
+   * Pre: laegemiddel er ikke null
+   */
+  public int antalOrdinationerPrVægtPrLægemiddel(double vægtStart, double vægtSlut, Laegemiddel laegemiddel) {
+    int antalOrdinationer = 0;
+    if (laegemiddel != null) {
+      for (Patient p : storage.getAllPatienter()) {
+        for (Ordination o : p.getOrdinations()) {
+          if (o.getLaegemiddel().getNavn().compareTo(laegemiddel.getNavn()) == 0 && p.getVaegt() > vægtStart && p.getVaegt() < vægtSlut) {
+            antalOrdinationer++;
+          }
+        }
+      }
+    }
+    return antalOrdinationer;
+  }
 
 	public List<Patient> getAllPatienter() {
 		return storage.getAllPatienter();

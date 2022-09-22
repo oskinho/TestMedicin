@@ -132,24 +132,25 @@ public class Controller {
 		return anbefaletDosis;
 	}
 
-  /**
-   * For et givent vægtinterval og et givent lægemiddel, hentes antallet af
-   * ordinationer.
-   * Pre: laegemiddel er ikke null
-   */
-  public int antalOrdinationerPrVægtPrLægemiddel(double vægtStart, double vægtSlut, Laegemiddel laegemiddel) {
-    int antalOrdinationer = 0;
-    if (laegemiddel != null) {
-      for (Patient p : storage.getAllPatienter()) {
-        for (Ordination o : p.getOrdinations()) {
-          if (o.getLaegemiddel().getNavn().compareTo(laegemiddel.getNavn()) == 0 && p.getVaegt() > vægtStart && p.getVaegt() < vægtSlut) {
-            antalOrdinationer++;
-          }
-        }
-      }
-    }
-    return antalOrdinationer;
-  }
+	/**
+	 * For et givent vægtinterval og et givent lægemiddel, hentes antallet af
+	 * ordinationer.
+	 * Pre: laegemiddel er ikke null
+	 */
+	public int antalOrdinationerPrVægtPrLægemiddel(double vægtStart,
+			double vægtSlut, Laegemiddel laegemiddel) {
+		int result = 0;
+		for (Patient patient : getAllPatienter()) {
+			if (vægtStart <= patient.getVaegt() && patient.getVaegt() < vægtSlut) {
+				for (Ordination ordination : patient.getOrdinations()) {
+					if (ordination.getLaegemiddel().equals(laegemiddel)) {
+						result++;
+					}
+				}
+			}
+		}
+		return result;
+	}
 
 	public List<Patient> getAllPatienter() {
 		return storage.getAllPatienter();

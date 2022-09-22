@@ -49,20 +49,27 @@ public class DagligFast extends Ordination {
         //sorter efter tid
         // 04-10 - 10-16 - 16-22 - 22-04
         Dosis dosis1 = new Dosis(tid, antal);
-        if (tid.isAfter(LocalTime.of(22, 0)) || tid.isBefore(LocalTime.of(4, 0)) && dosis[3] == null) {
+        if (tid.isAfter(LocalTime.of(21, 59)) || tid.isBefore(LocalTime.of(4, 0)) && dosis[3] == null) {
             dosis[3] = dosis1;
         }
-        if (tid.isAfter(LocalTime.of(16, 0)) && tid.isBefore(LocalTime.of(22, 0)) && dosis[2] == null) {
+        if (tid.isAfter(LocalTime.of(15,59 )) && tid.isBefore(LocalTime.of(22, 0)) && dosis[2] == null) {
             dosis[2] = dosis1;
         }
-        if (tid.isAfter(LocalTime.of(10, 0)) && tid.isBefore(LocalTime.of(16, 0)) && dosis[1] == null) {
+        if (tid.isAfter(LocalTime.of(9 , 59)) && tid.isBefore(LocalTime.of(16, 0)) && dosis[1] == null) {
             dosis[1] = dosis1;
         }
-        if (tid.isAfter(LocalTime.of(4, 0)) && tid.isBefore(LocalTime.of(10, 0)) && dosis[0] == null) {
+        if (tid.isAfter(LocalTime.of(3, 59)) && tid.isBefore(LocalTime.of(10, 0)) && dosis[0] == null) {
             dosis[0] = dosis1;
         }
 
         return dosis1;
+    }
+
+    public static void main(String[] args) {
+        DagligFast df = new DagligFast(LocalDate.of(2020, 10, 10), LocalDate.of(2020, 10, 10));
+        df.createDosis(LocalTime.of(10, 0), 10);
+
+        System.out.println(Arrays.toString(df.getDosis()));
     }
 
     //------------------------------------------------------------

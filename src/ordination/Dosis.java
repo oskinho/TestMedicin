@@ -6,7 +6,7 @@ public class Dosis {
     private LocalTime tid;
     private double antal;
 
-     Dosis(LocalTime tid, double antal) { //OBS package visibility
+    Dosis(LocalTime tid, double antal) { //OBS package visibility
         super();
         this.tid = tid;
         this.antal = antal;
@@ -29,7 +29,7 @@ public class Dosis {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "Kl: " + tid + "   antal:  " + antal;
     }
 

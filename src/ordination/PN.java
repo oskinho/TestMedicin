@@ -35,6 +35,7 @@ public class PN extends Ordination {
 
     /**
      * Returnerer (antal gange ordinationen er anvendt * antal enheder) / (antal dage mellem første og sidste givning)
+     *
      * @return
      */
     public double doegnDosis() {

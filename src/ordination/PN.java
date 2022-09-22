@@ -1,5 +1,7 @@
 package ordination;
 
+import gui.TypeOrdination;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ public class PN extends Ordination {
 
     @Override
     public String getType() {
-        return this.getClass().toString();
+        return TypeOrdination.PN.toString();
     }
 
 

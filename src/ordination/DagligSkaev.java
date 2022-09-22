@@ -1,5 +1,7 @@
 package ordination;
 
+import gui.TypeOrdination;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -58,6 +60,6 @@ public class DagligSkaev extends Ordination {
 
     @Override
     public String getType() {
-        return this.getClass().toString();
+        return TypeOrdination.SKAEV.toString();
     }
 }

@@ -93,7 +93,9 @@ public class Controller {
 			ds = new DagligSkaev(startDen, slutDen);
 			ds.setLaegemiddel(laegemiddel);
 			patient.addOrdination(ds);
-			ds.createDosis(klokkeSlet[0], antalEnheder[0]);
+			for (int i = 0; i < klokkeSlet.length; i++) {
+				ds.createDosis(klokkeSlet[i], antalEnheder[i]);
+			}
 		} else {
 			throw new IllegalArgumentException("Antal af elementer i klokkeslet og antalEnheder er forskellig");
 		}

@@ -52,13 +52,13 @@ public class DagligFast extends Ordination {
         if (tid.isAfter(LocalTime.of(22, 0)) || tid.isBefore(LocalTime.of(4, 0)) && dosis[3] == null) {
             dosis[3] = dosis1;
         }
-        if (tid.isAfter(LocalTime.of(4, 0)) || tid.isBefore(LocalTime.of(10, 0)) && dosis[2] == null) {
+        if (tid.isAfter(LocalTime.of(4, 0)) && tid.isBefore(LocalTime.of(10, 0)) && dosis[2] == null) {
             dosis[2] = dosis1;
         }
-        if (tid.isAfter(LocalTime.of(10, 0)) || tid.isBefore(LocalTime.of(16, 0)) && dosis[1] == null) {
+        if (tid.isAfter(LocalTime.of(10, 0)) && tid.isBefore(LocalTime.of(16, 0)) && dosis[1] == null) {
             dosis[1] = dosis1;
         }
-        if (tid.isAfter(LocalTime.of(16, 0)) || tid.isBefore(LocalTime.of(22, 0)) && dosis[0] == null) {
+        if (tid.isAfter(LocalTime.of(16, 0)) && tid.isBefore(LocalTime.of(22, 0)) && dosis[0] == null) {
             dosis[0] = dosis1;
         }
 

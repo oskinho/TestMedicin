@@ -150,6 +150,17 @@ public class Controller {
 			}
 		}
 		return result;
+//		int antalOrdinationer = 0;
+//		if (laegemiddel != null) {
+//			for (Patient p : storage.getAllPatienter()) {
+//				for (Ordination o : p.getOrdinations()) {
+//					if (o.getLaegemiddel().getNavn().compareTo(laegemiddel.getNavn()) == 0 && p.getVaegt() > vægtStart && p.getVaegt() < vægtSlut) {
+//						antalOrdinationer++;
+//					}
+//				}
+//			}
+//		}
+//		return antalOrdinationer;
 	}
 
 	public List<Patient> getAllPatienter() {

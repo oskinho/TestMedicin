@@ -4,11 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import ordination.DagligFast;
-import ordination.DagligSkaev;
-import ordination.Laegemiddel;
-import ordination.PN;
-import ordination.Patient;
+import ordination.*;
 import storage.Storage;
 
 public class Controller {
@@ -143,8 +139,17 @@ public class Controller {
 	 */
 	public int antalOrdinationerPrVægtPrLægemiddel(double vægtStart,
 			double vægtSlut, Laegemiddel laegemiddel) {
-		// TODO
-		return 0;
+		int result = 0;
+		for (Patient patient : getAllPatienter()) {
+			if (vægtStart <= patient.getVaegt() && patient.getVaegt() < vægtSlut) {
+				for (Ordination ordination : patient.getOrdinations()) {
+					if (ordination.getLaegemiddel().equals(laegemiddel)) {
+						result++;
+					}
+				}
+			}
+		}
+		return result;
 	}
 
 	public List<Patient> getAllPatienter() {

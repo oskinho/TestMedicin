@@ -42,7 +42,7 @@ public class PN extends Ordination {
         double result = 0.0;
         if (datoerForDosis.size() > 0) {
             int antalMlFoersteOgSidste = (int) ChronoUnit.DAYS.between(datoerForDosis.get(0), datoerForDosis.get(datoerForDosis.size()-1));
-            result = (datoerForDosis.size() * antalEnheder)/antalMlFoersteOgSidste;
+            result = (datoerForDosis.size() * antalEnheder)/(antalMlFoersteOgSidste+1);
         }
         return result;
     }

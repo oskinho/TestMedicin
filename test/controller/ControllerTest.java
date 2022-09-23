@@ -14,7 +14,7 @@ class ControllerTest {
 
     @BeforeEach
     public void setUp() {
-        Controller c = Controller.getController();
+        c = Controller.getTestController();
     }
 
     @Test

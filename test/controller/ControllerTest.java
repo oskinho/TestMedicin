@@ -1,12 +1,10 @@
 package controller;
 
-import ordination.DagligFast;
-import ordination.Laegemiddel;
-import ordination.PN;
-import ordination.Patient;
+import ordination.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -96,7 +94,59 @@ class ControllerTest {
     }
 
     @Test
-    void opretDagligSkaevOrdination() {
+    void TC1_opretDagligSkaevOrdination_SlutdatoEfterStartdato() {
+        //Arrange
+        Controller c = Controller.getTestController();
+        LocalDate startDato = LocalDate.of(2022, 9, 22);
+        LocalDate slutDato = LocalDate.of(2022, 9, 29);
+        Patient p1 = new Patient("310894-2314", "Jane Hansen", 70);
+        Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        LocalTime[] klokkeslet = new LocalTime[]{LocalTime.of(8, 30), LocalTime.of(13, 30), LocalTime.of(20, 30)};
+        double[] antalEnheder = new double[]{2,3,1};
+
+        //Act
+        DagligSkaev ds = c.opretDagligSkaevOrdination(startDato, slutDato, p1, lgm1, klokkeslet, antalEnheder);
+
+        //Assert
+        assertNotNull(ds);
+        assertEquals(lgm1, ds.getLaegemiddel());
+        assertEquals(ds, p1.getOrdinations().get(0));
+    }
+
+    @Test
+    void TC2_opretDagligSkaevOrdination_SlutdatoFørStartdato() {
+        //Arrange
+        Controller c = Controller.getTestController();
+        LocalDate startDato = LocalDate.of(2022, 9, 22);
+        LocalDate slutDato = LocalDate.of(2022, 9, 21);
+        Patient p1 = new Patient("310894-2314", "Jane Hansen", 70);
+        Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        LocalTime[] klokkeslet = new LocalTime[]{LocalTime.of(8, 30), LocalTime.of(13, 30), LocalTime.of(20, 30)};
+        double[] antalEnheder = new double[]{2,3,1};
+
+        //Act and assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            c.opretDagligSkaevOrdination(startDato, slutDato, p1, lgm1, klokkeslet, antalEnheder);
+        });
+        assertEquals("Startdato er efter slutdato", exception.getMessage());
+    }
+
+    @Test
+    void TC3_opretDagligSkaevOrdination_MismatchKlokkesletOgEnheder() {
+        //Arrange
+        Controller c = Controller.getTestController();
+        LocalDate startDato = LocalDate.of(2022, 9, 22);
+        LocalDate slutDato = LocalDate.of(2022, 9, 29);
+        Patient p1 = new Patient("310894-2314", "Jane Hansen", 70);
+        Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        LocalTime[] klokkeslet = new LocalTime[]{LocalTime.of(8, 30), LocalTime.of(13, 30), LocalTime.of(20, 30)};
+        double[] antalEnheder = new double[]{2,3};
+
+        //Act and assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            c.opretDagligSkaevOrdination(startDato, slutDato, p1, lgm1, klokkeslet, antalEnheder);
+        });
+        assertEquals("Antal af elementer i klokkeslet og antalEnheder er forskellig", exception.getMessage());
     }
 
     @Test

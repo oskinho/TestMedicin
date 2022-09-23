@@ -40,22 +40,22 @@ public class DagligSkaev extends Ordination {
 
     @Override
     public double samletDosis() {
-        int samlet = 0;
+        double samlet = 0;
         for (int i = 0; i < dosis.size(); i++) {
             samlet += dosis.get(i).getAntal();
         }
-        return samlet;
+        return samlet*antalDage();
     }
 
     @Override
     public double doegnDosis() {
 //        double dageMlFoersteOgSidsteGivning = (int) ChronoUnit.DAYS.between(getStartDen(), getSlutDen());
-        double dageMlFoersteOgSidsteGivning = antalDage();
+//        double dageMlFoersteOgSidsteGivning = antalDage();
         double samlet = 0;
         for (int i = 0; i < dosis.size(); i++) {
             samlet += dosis.get(i).getAntal();
         }
-        return samlet / dageMlFoersteOgSidsteGivning;
+        return samlet;
 
     }
 

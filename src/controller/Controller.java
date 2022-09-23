@@ -141,7 +141,7 @@ public class Controller {
 			double vægtSlut, Laegemiddel laegemiddel) {
 		int result = 0;
 		for (Patient patient : getAllPatienter()) {
-			if (vægtStart <= patient.getVaegt() && patient.getVaegt() < vægtSlut) {
+			if (vægtStart <= patient.getVaegt() && patient.getVaegt() <= vægtSlut) {
 				for (Ordination ordination : patient.getOrdinations()) {
 					if (ordination.getLaegemiddel().equals(laegemiddel)) {
 						result++;
@@ -150,17 +150,6 @@ public class Controller {
 			}
 		}
 		return result;
-//		int antalOrdinationer = 0;
-//		if (laegemiddel != null) {
-//			for (Patient p : storage.getAllPatienter()) {
-//				for (Ordination o : p.getOrdinations()) {
-//					if (o.getLaegemiddel().getNavn().compareTo(laegemiddel.getNavn()) == 0 && p.getVaegt() > vægtStart && p.getVaegt() < vægtSlut) {
-//						antalOrdinationer++;
-//					}
-//				}
-//			}
-//		}
-//		return antalOrdinationer;
 	}
 
 	public List<Patient> getAllPatienter() {

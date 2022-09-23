@@ -36,14 +36,14 @@ class ControllerTest {
 
     @Test
     void opretPNOrdinationUdenforPnOrdination() {
-//arrange
-        PN pn = new PN(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 21), 5);
+        //arrange
+        Controller c = Controller.getTestController();
         Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
         Patient p1 = new Patient("3108942314", "“Jane Hansen”", 70);
         //act
-        pn.setLaegemiddel(lgm1);
-        p1.addOrdination(pn);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> c.opretPNOrdination(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 21), p1, lgm1, 5));
         //assert
+        assertEquals("Startdato er efter slutdato", exception.getMessage());
     }
 
     //------------------------------------------------------------------

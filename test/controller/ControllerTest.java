@@ -37,14 +37,14 @@ class ControllerTest {
 
     @Test
     void opretPNOrdinationUdenforPnOrdination() {
-//arrange
-        PN pn = new PN(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 21), 5);
+        //arrange
+        Controller c = Controller.getTestController();
         Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
         Patient p1 = new Patient("3108942314", "“Jane Hansen”", 70);
         //act
-        pn.setLaegemiddel(lgm1);
-        p1.addOrdination(pn);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> c.opretPNOrdination(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 21), p1, lgm1, 5));
         //assert
+        assertEquals("Startdato er efter slutdato", exception.getMessage());
     }
 
     //------------------------------------------------------------------
@@ -102,8 +102,71 @@ class ControllerTest {
     @Test
     void ordinationPNAnvendt() {
     }
+    //------------------------------------------------------------------
 
     @Test
-    void anbefaletDosisPrDoegn() {
+    void anbefaletDosisPrDoegn_JaneHansen_20kg() {
+        //arrange
+        Controller c = Controller.getTestController();
+        Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient p1 = new Patient("3108942314", "“Jane Hansen”", 20);
+        //act
+        double actual = c.anbefaletDosisPrDoegn(p1, lgm1);
+        double expected = 20;
+        //assert
+        assertEquals(expected, actual);
+
+    }
+    @Test
+    void anbefaletDosisPrDoegn_JaneHansen_25kg() {
+        //arrange
+        Controller c = Controller.getTestController();
+        Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient p1 = new Patient("3108942314", "“Jane Hansen”", 25);
+        //act
+        double actual = c.anbefaletDosisPrDoegn(p1, lgm1);
+        double expected = 37.5;
+        //assert
+        assertEquals(expected, actual);
+
+    }
+    @Test
+    void anbefaletDosisPrDoegn_JaneHansen_70kg() {
+        //arrange
+        Controller c = Controller.getTestController();
+        Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient p1 = new Patient("3108942314", "“Jane Hansen”", 70);
+        //act
+        double actual = c.anbefaletDosisPrDoegn(p1, lgm1);
+        double expected = 105;
+        //assert
+        assertEquals(expected, actual);
+
+    }
+    @Test
+    void anbefaletDosisPrDoegn_JaneHansen_120kg() {
+        //arrange
+        Controller c = Controller.getTestController();
+        Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient p1 = new Patient("3108942314", "“Jane Hansen”", 120);
+        //act
+        double actual = c.anbefaletDosisPrDoegn(p1, lgm1);
+        double expected = 180;
+        //assert
+        assertEquals(expected, actual);
+
+    }
+    @Test
+    void anbefaletDosisPrDoegn_JaneHansen_130kg() {
+        //arrange
+        Controller c = Controller.getTestController();
+        Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        Patient p1 = new Patient("3108942314", "“Jane Hansen”", 130);
+        //act
+        double actual = c.anbefaletDosisPrDoegn(p1, lgm1);
+        double expected = 260;
+        //assert
+        assertEquals(expected, actual);
+
     }
 }

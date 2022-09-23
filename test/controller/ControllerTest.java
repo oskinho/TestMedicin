@@ -1,6 +1,7 @@
 package controller;
 
 import ordination.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -9,26 +10,31 @@ import java.time.LocalTime;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
+    Controller c;
+
+    @BeforeEach
+    public void setUp() {
+        Controller c = Controller.getController();
+    }
 
     @Test
     void opretPNOrdinationIndenforPnOrdination() {
         //arrange
-
-
         Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
         Patient p1 = new Patient("3108942314", "“Jane Hansen”", 70);
+
         //act
-        PN c = Controller.getTestController().opretPNOrdination(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 29), p1, lgm1, 5);
+        PN pn = c.opretPNOrdination(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 29), p1, lgm1, 5);
         LocalDate expectedstart = LocalDate.of(2022, 9, 22);
         LocalDate expectedslut = LocalDate.of(2022, 9, 29);
         double antalenheder = 5;
         String expectedlægemiddel = "Paracetamol";
 
         //assert
-        assertEquals(expectedstart, c.getStartDen());
-        assertEquals(expectedslut, c.getSlutDen());
-        assertEquals(antalenheder, c.getAntalEnheder());
-        assertEquals(expectedlægemiddel, c.getLaegemiddel().getNavn());
+        assertEquals(expectedstart, pn.getStartDen());
+        assertEquals(expectedslut, pn.getSlutDen());
+        assertEquals(antalenheder, pn.getAntalEnheder());
+        assertEquals(expectedlægemiddel, pn.getLaegemiddel().getNavn());
         assertEquals(expectedlægemiddel, p1.getOrdinations().get(0).getLaegemiddel().getNavn());
 
     }
@@ -36,7 +42,6 @@ class ControllerTest {
     @Test
     void opretPNOrdinationUdenforPnOrdination() {
         //arrange
-        Controller c = Controller.getTestController();
         Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
         Patient p1 = new Patient("3108942314", "“Jane Hansen”", 70);
         //act
@@ -50,7 +55,6 @@ class ControllerTest {
     @Test
     void TC1_opretDagligFastOrdination_SlutdatoEfterStartdato() {
         //Arrange
-        Controller c = Controller.getTestController();
         LocalDate startDato = LocalDate.of(2022, 9, 22);
         LocalDate slutDato = LocalDate.of(2022, 9, 29);
         Patient p1 = new Patient("310894-2314", "Jane Hansen", 70);
@@ -76,7 +80,6 @@ class ControllerTest {
     @Test
     void TC2_opretDagligFastOrdination_slutdatoIndenStartdato_ThrowsIllegalArgumentException() {
         //Arrange
-        Controller c = Controller.getTestController();
         LocalDate startDato = LocalDate.of(2022, 9, 22);
         LocalDate slutDato = LocalDate.of(2022, 9, 21);
         Patient p1 = new Patient("310894-2314", "Jane Hansen", 70);
@@ -96,7 +99,6 @@ class ControllerTest {
     @Test
     void TC1_opretDagligSkaevOrdination_SlutdatoEfterStartdato() {
         //Arrange
-        Controller c = Controller.getTestController();
         LocalDate startDato = LocalDate.of(2022, 9, 22);
         LocalDate slutDato = LocalDate.of(2022, 9, 29);
         Patient p1 = new Patient("310894-2314", "Jane Hansen", 70);
@@ -116,7 +118,6 @@ class ControllerTest {
     @Test
     void TC2_opretDagligSkaevOrdination_SlutdatoFørStartdato() {
         //Arrange
-        Controller c = Controller.getTestController();
         LocalDate startDato = LocalDate.of(2022, 9, 22);
         LocalDate slutDato = LocalDate.of(2022, 9, 21);
         Patient p1 = new Patient("310894-2314", "Jane Hansen", 70);
@@ -134,7 +135,6 @@ class ControllerTest {
     @Test
     void TC3_opretDagligSkaevOrdination_MismatchKlokkesletOgEnheder() {
         //Arrange
-        Controller c = Controller.getTestController();
         LocalDate startDato = LocalDate.of(2022, 9, 22);
         LocalDate slutDato = LocalDate.of(2022, 9, 29);
         Patient p1 = new Patient("310894-2314", "Jane Hansen", 70);
@@ -152,7 +152,6 @@ class ControllerTest {
     @Test
     void ordinationPNAnvendtIndenforDato() {
         //arrange
-        Controller c = Controller.getTestController();
         PN pn = new PN(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 29), 5);
         //act
         double expected = 5;
@@ -165,7 +164,6 @@ class ControllerTest {
     @Test
     void ordinationPNAnvendtUdenforDato() {
         //arrange
-        Controller c = Controller.getTestController();
         PN pn = new PN(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 29), 5);
 
         //act   //assert
@@ -181,7 +179,6 @@ class ControllerTest {
     @Test
     void anbefaletDosisPrDoegn_JaneHansen_20kg() {
         //arrange
-        Controller c = Controller.getTestController();
         Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
         Patient p1 = new Patient("3108942314", "“Jane Hansen”", 20);
         //act
@@ -195,7 +192,6 @@ class ControllerTest {
     @Test
     void anbefaletDosisPrDoegn_JaneHansen_25kg() {
         //arrange
-        Controller c = Controller.getTestController();
         Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
         Patient p1 = new Patient("3108942314", "“Jane Hansen”", 25);
         //act
@@ -209,7 +205,6 @@ class ControllerTest {
     @Test
     void anbefaletDosisPrDoegn_JaneHansen_70kg() {
         //arrange
-        Controller c = Controller.getTestController();
         Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
         Patient p1 = new Patient("3108942314", "“Jane Hansen”", 70);
         //act
@@ -223,7 +218,6 @@ class ControllerTest {
     @Test
     void anbefaletDosisPrDoegn_JaneHansen_120kg() {
         //arrange
-        Controller c = Controller.getTestController();
         Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
         Patient p1 = new Patient("3108942314", "“Jane Hansen”", 120);
         //act
@@ -237,7 +231,6 @@ class ControllerTest {
     @Test
     void anbefaletDosisPrDoegn_JaneHansen_130kg() {
         //arrange
-        Controller c = Controller.getTestController();
         Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
         Patient p1 = new Patient("3108942314", "“Jane Hansen”", 130);
         //act

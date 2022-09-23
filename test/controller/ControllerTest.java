@@ -150,7 +150,31 @@ class ControllerTest {
     }
 
     @Test
-    void ordinationPNAnvendt() {
+    void ordinationPNAnvendtIndenforDato() {
+        //arrange
+        Controller c = Controller.getTestController();
+        PN pn = new PN(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 29), 5);
+        //act
+        double expected = 5;
+        c.ordinationPNAnvendt(pn, LocalDate.of(2022, 9, 24));
+        //assert
+        assertEquals(expected, pn.samletDosis());
+
+    }
+
+    @Test
+    void ordinationPNAnvendtUdenforDato() {
+        //arrange
+        Controller c = Controller.getTestController();
+        PN pn = new PN(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 29), 5);
+
+        //act   //assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            c.ordinationPNAnvendt(pn, LocalDate.of(2022, 9, 21));
+        });
+
+        assertEquals("datoen ikke er indenfor ordinationens gyldighedsperiode", exception.getMessage());
+
     }
     //------------------------------------------------------------------
 
@@ -167,6 +191,7 @@ class ControllerTest {
         assertEquals(expected, actual);
 
     }
+
     @Test
     void anbefaletDosisPrDoegn_JaneHansen_25kg() {
         //arrange
@@ -180,6 +205,7 @@ class ControllerTest {
         assertEquals(expected, actual);
 
     }
+
     @Test
     void anbefaletDosisPrDoegn_JaneHansen_70kg() {
         //arrange
@@ -193,6 +219,7 @@ class ControllerTest {
         assertEquals(expected, actual);
 
     }
+
     @Test
     void anbefaletDosisPrDoegn_JaneHansen_120kg() {
         //arrange
@@ -206,6 +233,7 @@ class ControllerTest {
         assertEquals(expected, actual);
 
     }
+
     @Test
     void anbefaletDosisPrDoegn_JaneHansen_130kg() {
         //arrange

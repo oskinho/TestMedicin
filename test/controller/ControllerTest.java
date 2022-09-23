@@ -1,6 +1,12 @@
 package controller;
 
+import ordination.DagligFast;
+import ordination.Laegemiddel;
+import ordination.PN;
+import ordination.Patient;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,7 +52,7 @@ class ControllerTest {
     @Test
     void TC1_opretDagligFastOrdination_SlutdatoEfterStartdato() {
         //Arrange
-        Controller c = Controller.getController();
+        Controller c = Controller.getTestController();
         LocalDate startDato = LocalDate.of(2022, 9, 22);
         LocalDate slutDato = LocalDate.of(2022, 9, 29);
         Patient p1 = new Patient("310894-2314", "Jane Hansen", 70);
@@ -57,10 +63,36 @@ class ControllerTest {
         double natAntal = 1;
 
         //Act
-        c.opretDagligFastOrdination(startDato, slutDato, p1, lgm1, morgenAntal, middagAntal, aftenAntal, natAntal);
+        DagligFast df = c.opretDagligFastOrdination(startDato, slutDato, p1, lgm1, morgenAntal, middagAntal, aftenAntal, natAntal);
 
         //Assert
+        assertNotNull(df);
+        assertEquals(lgm1, df.getLaegemiddel());
+        assertEquals(df, p1.getOrdinations().get(0));
+        assertEquals(morgenAntal, df.getDosis()[0].getAntal());
+        assertEquals(middagAntal, df.getDosis()[1].getAntal());
+        assertEquals(aftenAntal, df.getDosis()[2].getAntal());
+        assertEquals(natAntal, df.getDosis()[3].getAntal());
+    }
 
+    @Test
+    void TC2_opretDagligFastOrdination_slutdatoIndenStartdato_ThrowsIllegalArgumentException() {
+        //Arrange
+        Controller c = Controller.getTestController();
+        LocalDate startDato = LocalDate.of(2022, 9, 22);
+        LocalDate slutDato = LocalDate.of(2022, 9, 21);
+        Patient p1 = new Patient("310894-2314", "Jane Hansen", 70);
+        Laegemiddel lgm1 = new Laegemiddel("Paracetamol", 1, 1.5, 2, "Ml");
+        double morgenAntal = 3;
+        double middagAntal = 2;
+        double aftenAntal = 1;
+        double natAntal = 1;
+
+        //Act and assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            c.opretDagligFastOrdination(startDato, slutDato, p1, lgm1, morgenAntal, middagAntal, aftenAntal, natAntal);
+        });
+        assertEquals("Startdato er efter slutdato", exception.getMessage());
     }
 
     @Test

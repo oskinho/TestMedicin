@@ -30,13 +30,7 @@ public class DagligSkaev extends Ordination {
     }
 
     //------------------------------------------------------------
-    // TODO
 
-    public void opretDosis(LocalTime tid, double antal) {
-        // TODO
-        Dosis dosis1 = new Dosis(tid, antal);
-        dosis.add(dosis1);
-    }
 
     @Override
     public double samletDosis() {
@@ -49,8 +43,6 @@ public class DagligSkaev extends Ordination {
 
     @Override
     public double doegnDosis() {
-//        double dageMlFoersteOgSidsteGivning = (int) ChronoUnit.DAYS.between(getStartDen(), getSlutDen());
-//        double dageMlFoersteOgSidsteGivning = antalDage();
         double samlet = 0;
         for (int i = 0; i < dosis.size(); i++) {
             samlet += dosis.get(i).getAntal();

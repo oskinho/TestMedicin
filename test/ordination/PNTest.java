@@ -6,6 +6,38 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PNTest {
 
+    @org.junit.jupiter.api.Test
+    void opretPnTest() {
+        //arrange
+        PN pn = new PN(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 29), 5);
+
+        //act
+        LocalDate expectedstart = LocalDate.of(2022, 9, 22);
+        LocalDate expectedslut = LocalDate.of(2022, 9, 29);
+        double antalenheder = 5;
+        //assert
+        assertEquals(expectedstart, pn.getStartDen());
+        assertEquals(expectedslut, pn.getSlutDen());
+        assertEquals(antalenheder, pn.getAntalEnheder());
+    }
+
+    @org.junit.jupiter.api.Test
+    void opretPnTest2() {
+        //arrange
+        PN pn = new PN(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 22), 3);
+
+        //act
+//        PN expected  = new PN(LocalDate.of(2022, 9, 22), LocalDate.of(2022, 9, 22), 3);
+        LocalDate expectedstart = LocalDate.of(2022, 9, 22);
+        LocalDate expectedslut = LocalDate.of(2022, 9, 22);
+        double antalenheder = 3;
+        //assert
+        assertEquals(expectedstart, pn.getStartDen());
+        assertEquals(expectedslut, pn.getSlutDen());
+        assertEquals(antalenheder, pn.getAntalEnheder());
+    }
+
+
     //METODE GIVDOSIS TEST
 
     @org.junit.jupiter.api.Test
